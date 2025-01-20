@@ -5,7 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The End of Times Stock</title>
     <style>
-        /* Your styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .currency-button {
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .currency-button:hover {
+            background-color: #3498db;
+        }
+
+        .shop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .item h3 {
+            margin: 10px 0;
+        }
+
+        .item p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #c0392b;
+        }
+
+        #user-info {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #user-info img {
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        #status {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        #discord-login {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #discord-login:hover {
+            background-color: #5d6d8e;
+        }
     </style>
 </head>
 <body>
@@ -27,7 +132,7 @@
     <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
 
     <div id="status"></div>
-    <div id="user-info" style="display: none;">
+    <div id="user-info">
         <p><strong>Username:</strong> <span id="user-username"></span></p>
         <p><strong>Email:</strong> <span id="user-email"></span></p>
         <img id="user-avatar" src="" alt="User Avatar" />
