@@ -5,115 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The End of Times Stock</title>
     <style>
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            background-color: #1a252f;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            letter-spacing: 2px;
-            color: #f39c12;
-        }
-
-        .currency-button {
-            background-color: #e67e22;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.2em;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .currency-button:hover {
-            background-color: #d35400;
-        }
-
-        .shop {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            padding: 40px 20px;
-        }
-
-        .item {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .item:hover {
-            transform: scale(1.05);
-        }
-
-        .item h3 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #f39c12;
-        }
-
-        .item p {
-            font-size: 1.4em;
-            margin: 10px 0;
-        }
-
-        .item .price {
-            font-size: 1.2em;
-            color: #7f8c8d;
-        }
-
-        .item .price span {
-            font-size: 1.1em;
-            color: #16a085;
-        }
-
-        .item .buy-button {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.2em;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .item .buy-button:hover {
-            background-color: #c0392b;
-        }
-
-        .name-field {
-            margin: 20px 0;
-        }
-
-        .name-field input {
-            padding: 15px;
-            font-size: 1.2em;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            width: 300px;
-            margin-top: 20px;
-        }
+        /* Your styles here */
     </style>
 </head>
 <body>
@@ -123,94 +15,96 @@
     </header>
 
     <div class="shop">
-        <div class="item" data-price="250">
-            <h3>1 Random Nessie</h3>
-            <p>250 RBX</p>
-            <p class="price">€<span class="price-euro">0.00</span></p>
-            <button class="buy-button" onclick="buyItem('Random Nessie', 250)">Buy</button>
-        </div>
-
-        <div class="item" data-price="500">
-            <h3>1 Unapp Mythical</h3>
-            <p>500 RBX</p>
-            <p class="price">€<span class="price-euro">0.00</span></p>
-            <button class="buy-button" onclick="buyItem('Unapp Mythical', 500)">Buy</button>
-        </div>
-
-        <div class="item" data-price="700">
-            <h3>1 Unapp Sinister</h3>
-            <p>700 RBX</p>
-            <p class="price">€<span class="price-euro">0.00</span></p>
-            <button class="buy-button" onclick="buyItem('Unapp Sinister', 700)">Buy</button>
-        </div>
-
-        <div class="item" data-price="300">
-            <h3>1 Random Unapp Nessie</h3>
-            <p>300 RBX</p>
-            <p class="price">€<span class="price-euro">0.00</span></p>
-            <button class="buy-button" onclick="buyItem('Random Unapp Nessie', 300)">Buy</button>
-        </div>
-
-        <div class="item" data-price="100">
-            <h3>100 Relics</h3>
-            <p>100 RBX</p>
-            <p class="price">€<span class="price-euro">0.00</span></p>
-            <button class="buy-button" onclick="buyItem('100 Relics', 100)">Buy</button>
-        </div>
+        <!-- Your items here -->
     </div>
 
     <div class="name-field">
         <input type="text" id="username" placeholder="Enter your name" />
     </div>
 
+    <!-- Discord OAuth2 Authorization -->
+    <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
+
+    <div id="status"></div>
+    <div id="user-info" style="display: none;">
+        <p><strong>Username:</strong> <span id="user-username"></span></p>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <img id="user-avatar" src="" alt="User Avatar" />
+    </div>
+
     <script>
-        function openCurrencyConverter() {
-            window.open("https://www.xe.com/currencyconverter/", "_blank");
+        const clientId = '1330617833775960065'; // Your Discord Client ID
+        const redirectUri = 'https://uh-yy94.onrender.com/main.html'; // Your redirect URI
+
+        // Function to start the OAuth flow
+        function startOAuth() {
+            const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
+            window.location.href = discordAuthUrl;
         }
 
-        function updatePrices() {
-            const items = document.querySelectorAll('.item');
-            for (let item of items) {
-                const rbxAmount = parseInt(item.getAttribute('data-price'));
-                const euroAmount = (rbxAmount * 0.015).toFixed(2); // Conversion rate: 1 RBX = 0.015 EUR
-                item.querySelector('.price-euro').textContent = euroAmount;
-            }
+        // Function to get the query parameter from the URL (authorization code)
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
 
-        window.onload = updatePrices;  // Ensure prices are updated once the page loads
+        // Check if there's an authorization code in the URL
+        const authCode = getQueryParam('code');
+        if (authCode) {
+            // Remove the code from the URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
 
-        function buyItem(itemName, itemPrice) {
-            const username = document.getElementById('username').value.trim();
-
-            if (!username) {
-                alert('Please enter your name before buying an item.');
-                return;
-            }
-
-            const webhookUrl = "https://discord.com/api/webhooks/1330651120435200050/uGNZuF_MmIzKM3CdAcluZupTlibfsEO9-T-7dFrLpYM5VImM_fqq4yFe5yi6bjr28Sxu";
-            const payload = {
-                username: "Shop Bot",
-                content: `${username} wants to buy ${itemName} (${itemPrice} RBX)`
-            };
-
-            fetch(webhookUrl, {
+            // Send the code to Discord to exchange it for an access token
+            fetch('https://discord.com/api/oauth2/token', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify(payload),
+                body: new URLSearchParams({
+                    client_id: clientId,
+                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Your Discord Client Secret
+                    grant_type: 'authorization_code',
+                    code: authCode,
+                    redirect_uri: redirectUri,
+                }),
             })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "https://discord.gg/ZNrzQd3URH";
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    // Fetch user info using the access token
+                    fetch('https://discord.com/api/users/@me', {
+                        headers: {
+                            Authorization: `Bearer ${data.access_token}`,
+                        },
+                    })
+                    .then(userInfoResponse => userInfoResponse.json())
+                    .then(userInfo => {
+                        // Show the user info on the page
+                        document.getElementById('username').value = userInfo.username;
+                        document.getElementById('user-username').textContent = userInfo.username;
+                        document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
+                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
+                        document.getElementById('user-info').style.display = 'block';
+                        document.getElementById('status').textContent = 'User authenticated successfully!';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user info:', error);
+                        document.getElementById('status').textContent = 'Error fetching user info';
+                    });
                 } else {
-                    alert('There was an error sending your request. Please try again later.');
+                    document.getElementById('status').textContent = 'Error exchanging code for access token';
                 }
             })
             .catch(error => {
-                alert('Failed to connect to the webhook. Please check your network and try again.');
-                console.error(error);
+                console.error('Error during token exchange:', error);
+                document.getElementById('status').textContent = 'Error during OAuth process';
             });
+        }
+
+        // Real-time currency converter link
+        function openCurrencyConverter() {
+            window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
     </script>
 </body>
