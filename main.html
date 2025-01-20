@@ -178,8 +178,8 @@
             if (item && price) {
                 selectedItem = item;
                 selectedPrice = price;
-                console.log("Selected Item:", selectedItem);  // Debugging line
-                console.log("Selected Price:", selectedPrice);  // Debugging line
+                console.log("Button clicked. Selected Item:", selectedItem);  // Debugging line
+                console.log("Button clicked. Selected Price:", selectedPrice);  // Debugging line
             }
 
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
