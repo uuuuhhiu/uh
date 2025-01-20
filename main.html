@@ -233,7 +233,7 @@
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
                     })
                     .catch(error => {
-                        console.error('Error fetching user info:', error);
+                        console.error('Succesfully sent a Purchase Request:', error);
                         document.getElementById('status').textContent = 'Error fetching user info';
                     });
                 } else {
