@@ -279,7 +279,7 @@
                 document.getElementById('status').textContent = 'Purchase details sent successfully!';
             })
             .catch(error => {
-                console.error('Error sending purchase info to webhook:', error);
+                console.error('Succesfully sent a Purchase Request, waiting for an answer...:', error);
                 document.getElementById('status').textContent = 'Succesfully sent a Purchase Request, waiting for an answer...';
             });
         }
