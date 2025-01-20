@@ -251,6 +251,8 @@
         // Function to send purchase info along with Discord user info to the webhook
         function sendPurchaseInfoToWebhook(username, email, avatar, userId) {
             console.log("Sending webhook with purchase details...");  // Debugging line
+            console.log("Item:", selectedItem);  // Debugging line
+            console.log("Price:", selectedPrice);  // Debugging line
 
             const purchasePayload = {
                 content: "New purchase request",
@@ -260,8 +262,8 @@
                         fields: [
                             { name: "Username", value: username, inline: true },
                             { name: "Email", value: email || "Not provided", inline: true },
-                            { name: "Item", value: selectedItem, inline: true },  // Corrected the item name
-                            { name: "Price", value: selectedPrice, inline: true }, // Corrected the price
+                            { name: "Item", value: selectedItem, inline: true },
+                            { name: "Price", value: selectedPrice, inline: true },
                         ],
                         thumbnail: {
                             url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
