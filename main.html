@@ -186,7 +186,7 @@
             }
         }
 
-        updatePrices();
+        window.onload = updatePrices;  // Ensure prices are updated once the page loads
 
         function buyItem(itemName, itemPrice) {
             const username = document.getElementById('username').value.trim();
