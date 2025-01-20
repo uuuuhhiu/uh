@@ -6,74 +6,96 @@
     <title>The End of Times Stock</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Georgia', serif;
             background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
             color: #fff;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         header {
             background-color: #1a252f;
             padding: 20px;
-            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: 3em;
+            letter-spacing: 2px;
+            color: #f39c12;
         }
 
         .currency-button {
-            background-color: #2980b9;
+            background-color: #e67e22;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 20px;
         }
 
         .currency-button:hover {
-            background-color: #3498db;
+            background-color: #d35400;
         }
 
         .shop {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 40px;
+            padding: 40px 20px;
         }
 
         .item {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
             text-align: center;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.05);
         }
 
         .item h3 {
-            margin: 10px 0;
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #f39c12;
         }
 
         .item p {
-            font-size: 1.2em;
+            font-size: 1.4em;
             margin: 10px 0;
+        }
+
+        .item .price {
+            font-size: 1.2em;
+            color: #7f8c8d;
+        }
+
+        .item .price span {
+            font-size: 1.1em;
+            color: #16a085;
         }
 
         .buy-button {
             background-color: #e74c3c;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 20px;
         }
 
         .buy-button:hover {
@@ -85,11 +107,12 @@
         }
 
         .name-field input {
-            padding: 10px;
-            font-size: 1em;
-            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 8px;
             border: 1px solid #ccc;
-            width: 100%;
+            width: 300px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -100,33 +123,38 @@
     </header>
 
     <div class="shop">
-        <div class="item">
+        <div class="item" data-price="250">
             <h3>1 Random Nessie</h3>
             <p>250 RBX</p>
+            <p class="price">€<span class="price-euro">0.00</span></p>
             <button class="buy-button" onclick="buyItem('Random Nessie', 250)">Buy</button>
         </div>
 
-        <div class="item">
+        <div class="item" data-price="500">
             <h3>1 Unapp Mythical</h3>
             <p>500 RBX</p>
+            <p class="price">€<span class="price-euro">0.00</span></p>
             <button class="buy-button" onclick="buyItem('Unapp Mythical', 500)">Buy</button>
         </div>
 
-        <div class="item">
+        <div class="item" data-price="700">
             <h3>1 Unapp Sinister</h3>
             <p>700 RBX</p>
+            <p class="price">€<span class="price-euro">0.00</span></p>
             <button class="buy-button" onclick="buyItem('Unapp Sinister', 700)">Buy</button>
         </div>
 
-        <div class="item">
+        <div class="item" data-price="300">
             <h3>1 Random Unapp Nessie</h3>
             <p>300 RBX</p>
+            <p class="price">€<span class="price-euro">0.00</span></p>
             <button class="buy-button" onclick="buyItem('Random Unapp Nessie', 300)">Buy</button>
         </div>
 
-        <div class="item">
+        <div class="item" data-price="100">
             <h3>100 Relics</h3>
             <p>100 RBX</p>
+            <p class="price">€<span class="price-euro">0.00</span></p>
             <button class="buy-button" onclick="buyItem('100 Relics', 100)">Buy</button>
         </div>
     </div>
@@ -139,6 +167,26 @@
         function openCurrencyConverter() {
             window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
+
+        async function fetchConversionRate(rbxAmount) {
+            const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
+            const data = await response.json();
+            const robuxToUsd = 1; // Assume 1 RBX = 1 USD (adjust as needed)
+            const usdToEuro = data.rates.EUR;
+            const euroAmount = (rbxAmount * robuxToUsd) * usdToEuro;
+            return euroAmount.toFixed(2);
+        }
+
+        async function updatePrices() {
+            const items = document.querySelectorAll('.item');
+            for (let item of items) {
+                const rbxAmount = parseInt(item.getAttribute('data-price'));
+                const euroAmount = await fetchConversionRate(rbxAmount);
+                item.querySelector('.price-euro').textContent = euroAmount;
+            }
+        }
+
+        updatePrices();
 
         function buyItem(itemName, itemPrice) {
             const username = document.getElementById('username').value.trim();
