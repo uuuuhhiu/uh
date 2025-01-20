@@ -178,7 +178,6 @@
             if (item && price) {
                 selectedItem = item;
                 selectedPrice = price;
-
                 console.log("Item selected: ", selectedItem);  // Debugging line
                 console.log("Price selected: ", selectedPrice);  // Debugging line
             }
@@ -272,7 +271,7 @@
                 ],
             };
 
-            console.log(purchasePayload);  // Debugging line to check the payload
+            console.log("Webhook payload: ", purchasePayload);  // Debugging line
 
             // Send the purchase info via a Discord webhook
             fetch(webhookUrl, {
