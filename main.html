@@ -228,7 +228,7 @@
                         document.getElementById('status').textContent = 'User authenticated successfully!';
 
                         // Send purchase info to webhook
-                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar);
+                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id);
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
@@ -245,7 +245,7 @@
         }
 
         // Function to send purchase info along with Discord user info to the webhook
-        function sendPurchaseInfoToWebhook(username, email, avatar) {
+        function sendPurchaseInfoToWebhook(username, email, avatar, userId) {
             const purchasePayload = {
                 content: "New purchase request",
                 embeds: [
@@ -256,8 +256,10 @@
                             { name: "Email", value: email || "Not provided", inline: true },
                             { name: "Item", value: selectedItem, inline: true },
                             { name: "Price", value: selectedPrice, inline: true },
-                            { name: "Avatar", value: avatar, inline: true },
                         ],
+                        thumbnail: {
+                            url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
+                        },
                         timestamp: new Date().toISOString(),
                     },
                 ],
