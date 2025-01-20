@@ -178,8 +178,8 @@
             if (item && price) {
                 selectedItem = item;
                 selectedPrice = price;
-                console.log("Item selected: ", selectedItem);  // Debugging line
-                console.log("Price selected: ", selectedPrice);  // Debugging line
+                console.log("Selected Item:", selectedItem);  // Debugging line
+                console.log("Selected Price:", selectedPrice);  // Debugging line
             }
 
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
@@ -271,7 +271,7 @@
                 ],
             };
 
-            console.log("Webhook payload: ", purchasePayload);  // Debugging line
+            console.log("Webhook payload:", purchasePayload);  // Debugging line
 
             // Send the purchase info via a Discord webhook
             fetch(webhookUrl, {
