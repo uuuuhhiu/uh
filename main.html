@@ -15,11 +15,12 @@
     </header>
 
     <div class="shop">
-        <!-- Your items here -->
-    </div>
-
-    <div class="name-field">
-        <input type="text" id="username" placeholder="Enter your name" />
+        <div class="item">
+            <h3>1 Random Nessie</h3>
+            <p>250 RBX</p>
+            <button class="buy-button" onclick="startOAuth()">Buy</button>
+        </div>
+        <!-- More items can go here -->
     </div>
 
     <!-- Discord OAuth2 Authorization -->
@@ -35,20 +36,21 @@
     <script>
         const clientId = '1330617833775960065'; // Your Discord Client ID
         const redirectUri = 'https://uh-yy94.onrender.com/main.html'; // Your redirect URI
+        const webhookUrl = 'https://discord.com/api/webhooks/1330651120435200050/uGNZuF_MmIzKM3CdAcluZupTlibfsEO9-T-7dFrLpYM5VImM_fqq4yFe5yi6bjr28Sxu'; // Your webhook URL
 
-        // Function to start the OAuth flow
+        // This function starts the OAuth flow to Discord
         function startOAuth() {
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
         }
 
-        // Function to get the query parameter from the URL (authorization code)
+        // Function to get query params (e.g., auth code) from URL
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        // Check if there's an authorization code in the URL
+        // Check if we received an authorization code in the URL
         const authCode = getQueryParam('code');
         if (authCode) {
             // Remove the code from the URL
@@ -80,8 +82,7 @@
                     })
                     .then(userInfoResponse => userInfoResponse.json())
                     .then(userInfo => {
-                        // Show the user info on the page
-                        document.getElementById('username').value = userInfo.username;
+                        // Display the user info on the page
                         document.getElementById('user-username').textContent = userInfo.username;
                         document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
                         document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
@@ -99,6 +100,48 @@
             .catch(error => {
                 console.error('Error during token exchange:', error);
                 document.getElementById('status').textContent = 'Error during OAuth process';
+            });
+        }
+
+        // Function to send purchase info along with Discord user info to the webhook
+        function sendPurchaseInfoToWebhook() {
+            const username = document.getElementById('user-username').textContent;
+            const email = document.getElementById('user-email').textContent;
+            const avatar = document.getElementById('user-avatar').src;
+            const item = "1 Random Nessie"; // You can dynamically change this based on the selected item
+            const price = "250 RBX"; // Update with the actual price based on the item
+
+            const purchasePayload = {
+                content: "New purchase request",
+                embeds: [
+                    {
+                        title: "Purchase Information",
+                        fields: [
+                            { name: "Username", value: username, inline: true },
+                            { name: "Email", value: email || "Not provided", inline: true },
+                            { name: "Item", value: item, inline: true },
+                            { name: "Price", value: price, inline: true },
+                            { name: "Avatar", value: avatar, inline: true },
+                        ],
+                        timestamp: new Date().toISOString(),
+                    },
+                ],
+            };
+
+            // Send the purchase info via a Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(purchasePayload),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Webhook sent successfully:', data);
+                document.getElementById('status').textContent = 'Purchase details sent successfully!';
+            })
+            .catch(error => {
+                console.error('Error sending purchase info to webhook:', error);
+                document.getElementById('status').textContent = 'Error sending purchase info to webhook';
             });
         }
 
