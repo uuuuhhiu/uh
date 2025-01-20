@@ -86,7 +86,7 @@
             color: #16a085;
         }
 
-        .buy-button {
+        .item .buy-button {
             background-color: #e74c3c;
             color: #fff;
             border: none;
@@ -98,7 +98,7 @@
             margin-top: 20px;
         }
 
-        .buy-button:hover {
+        .item .buy-button:hover {
             background-color: #c0392b;
         }
 
@@ -168,20 +168,11 @@
             window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
 
-        async function fetchConversionRate(rbxAmount) {
-            const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
-            const data = await response.json();
-            const robuxToUsd = 1 / 80;  // Adjusting the conversion rate: 1 RBX = 0.0125 USD
-            const usdToEuro = data.rates.EUR;
-            const euroAmount = (rbxAmount * robuxToUsd) * usdToEuro;
-            return euroAmount.toFixed(2);
-        }
-
-        async function updatePrices() {
+        function updatePrices() {
             const items = document.querySelectorAll('.item');
             for (let item of items) {
                 const rbxAmount = parseInt(item.getAttribute('data-price'));
-                const euroAmount = await fetchConversionRate(rbxAmount);
+                const euroAmount = (rbxAmount * 0.015).toFixed(2); // Conversion rate: 1 RBX = 0.015 EUR
                 item.querySelector('.price-euro').textContent = euroAmount;
             }
         }
