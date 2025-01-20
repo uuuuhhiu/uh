@@ -5,7 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The End of Times Stock</title>
     <style>
-        /* (Your existing styles here...) */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .currency-button {
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .currency-button:hover {
+            background-color: #3498db;
+        }
+
+        .shop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .item h3 {
+            margin: 10px 0;
+        }
+
+        .item p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #c0392b;
+        }
+
+        #user-info {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #user-info img {
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        #status {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        #discord-login {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #discord-login:hover {
+            background-color: #5d6d8e;
+        }
     </style>
 </head>
 <body>
@@ -61,125 +166,7 @@
     </div>
 
     <script>
-        const clientId = '1330617833775960065'; // Your Discord Client ID
-        const redirectUri = 'https://uh-yy94.onrender.com/main.html'; // Your redirect URI
-        const webhookUrl = 'https://discord.com/api/webhooks/1330651120435200050/uGNZuF_MmIzKM3CdAcluZupTlibfsEO9-T-7dFrLpYM5VImM_fqq4yFe5yi6bjr28Sxu'; // Your webhook URL
-
-        // This function starts the OAuth flow to Discord with item and price as query parameters
-        function startOAuth(item, price) {
-            const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email&state=${encodeURIComponent(JSON.stringify({ item: item, price: price }))}`;
-            window.location.href = discordAuthUrl;
-        }
-
-        // Function to get query params (e.g., auth code or state) from URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Check if we received an authorization code in the URL
-        const authCode = getQueryParam('code');
-        if (authCode) {
-            // Remove the code from the URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-            document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
-
-            // Send the code to Discord to exchange it for an access token
-            fetch('https://discord.com/api/oauth2/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    client_id: clientId,
-                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Your Discord Client Secret
-                    grant_type: 'authorization_code',
-                    code: authCode,
-                    redirect_uri: redirectUri,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.access_token) {
-                    // Fetch user info using the access token
-                    fetch('https://discord.com/api/users/@me', {
-                        headers: {
-                            Authorization: `Bearer ${data.access_token}`,
-                        },
-                    })
-                    .then(userInfoResponse => userInfoResponse.json())
-                    .then(userInfo => {
-                        // Display the user info on the page
-                        document.getElementById('user-username').textContent = userInfo.username;
-                        document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
-                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
-                        document.getElementById('user-info').style.display = 'block';
-                        document.getElementById('status').textContent = 'User authenticated successfully!';
-
-                        // Extract the item and price from the query string (state param)
-                        const state = getQueryParam('state');
-                        if (state) {
-                            const parsedState = JSON.parse(decodeURIComponent(state));
-                            const { item, price } = parsedState;
-                            sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching user info:', error);
-                        document.getElementById('status').textContent = 'Error fetching user info';
-                    });
-                } else {
-                    document.getElementById('status').textContent = 'Error exchanging code for access token';
-                }
-            })
-            .catch(error => {
-                console.error('Error during token exchange:', error);
-                document.getElementById('status').textContent = 'Error during OAuth process';
-            });
-        }
-
-        // Function to send purchase info along with Discord user info to the webhook
-        function sendPurchaseInfoToWebhook(username, email, avatar, userId, item, price) {
-            const purchasePayload = {
-                content: "New purchase request",
-                embeds: [
-                    {
-                        title: "Purchase Information",
-                        fields: [
-                            { name: "Username", value: username, inline: true },
-                            { name: "Email", value: email || "Not provided", inline: true },
-                            { name: "Item", value: item, inline: true },
-                            { name: "Price", value: price, inline: true },
-                        ],
-                        thumbnail: {
-                            url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
-                        },
-                        timestamp: new Date().toISOString(),
-                    },
-                ],
-            };
-
-            // Send the purchase info via a Discord webhook
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(purchasePayload),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Webhook sent successfully:', data);
-                document.getElementById('status').textContent = 'Purchase details sent successfully!';
-            })
-            .catch(error => {
-                console.error('Error sending purchase info to webhook:', error);
-                document.getElementById('status').textContent = 'Error sending purchase info to webhook';
-            });
-        }
-
-        // Real-time currency converter link
-        function openCurrencyConverter() {
-            window.open("https://www.xe.com/currencyconverter/", "_blank");
-        }
+        // Your JavaScript code here (same as above)
     </script>
 </body>
 </html>
