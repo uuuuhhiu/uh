@@ -171,7 +171,7 @@
         async function fetchConversionRate(rbxAmount) {
             const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
             const data = await response.json();
-            const robuxToUsd = 1; // Assume 1 RBX = 1 USD (adjust as needed)
+            const robuxToUsd = 1 / 80;  // Adjusting the conversion rate: 1 RBX = 0.0125 USD
             const usdToEuro = data.rates.EUR;
             const euroAmount = (rbxAmount * robuxToUsd) * usdToEuro;
             return euroAmount.toFixed(2);
