@@ -178,6 +178,10 @@
         function startOAuth(item, price) {
             selectedItem = item;
             selectedPrice = price;
+
+            console.log("Item selected: ", selectedItem);  // Debugging line
+            console.log("Price selected: ", selectedPrice);  // Debugging line
+
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
         }
@@ -246,6 +250,8 @@
 
         // Function to send purchase info along with Discord user info to the webhook
         function sendPurchaseInfoToWebhook(username, email, avatar, userId) {
+            console.log("Sending webhook with purchase details...");  // Debugging line
+
             const purchasePayload = {
                 content: "New purchase request",
                 embeds: [
@@ -264,6 +270,8 @@
                     },
                 ],
             };
+
+            console.log(purchasePayload);  // Debugging line to check the payload
 
             // Send the purchase info via a Discord webhook
             fetch(webhookUrl, {
