@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The End of Times Stock</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1a252f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .currency-button {
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .currency-button:hover {
+            background-color: #3498db;
+        }
+
+        .shop {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .item h3 {
+            margin: 10px 0;
+        }
+
+        .item p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .buy-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #c0392b;
+        }
+
+        .name-field {
+            margin: 20px 0;
+        }
+
+        .name-field input {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The End of Times Stock</h1>
+        <button class="currency-button" onclick="openCurrencyConverter()">Real-Time Currency Converter</button>
+    </header>
+
+    <div class="shop">
+        <div class="item">
+            <h3>1 Random Nessie</h3>
+            <p>250 RBX</p>
+            <button class="buy-button" onclick="buyItem('Random Nessie', 250)">Buy</button>
+        </div>
+
+        <div class="item">
+            <h3>1 Unapp Mythical</h3>
+            <p>500 RBX</p>
+            <button class="buy-button" onclick="buyItem('Unapp Mythical', 500)">Buy</button>
+        </div>
+
+        <div class="item">
+            <h3>1 Unapp Sinister</h3>
+            <p>700 RBX</p>
+            <button class="buy-button" onclick="buyItem('Unapp Sinister', 700)">Buy</button>
+        </div>
+
+        <div class="item">
+            <h3>1 Random Unapp Nessie</h3>
+            <p>300 RBX</p>
+            <button class="buy-button" onclick="buyItem('Random Unapp Nessie', 300)">Buy</button>
+        </div>
+
+        <div class="item">
+            <h3>100 Relics</h3>
+            <p>100 RBX</p>
+            <button class="buy-button" onclick="buyItem('100 Relics', 100)">Buy</button>
+        </div>
+    </div>
+
+    <div class="name-field">
+        <input type="text" id="username" placeholder="Enter your name" />
+    </div>
+
+    <script>
+        function openCurrencyConverter() {
+            window.open("https://www.xe.com/currencyconverter/", "_blank");
+        }
+
+        function buyItem(itemName, itemPrice) {
+            const username = document.getElementById('username').value.trim();
+
+            if (!username) {
+                alert('Please enter your name before buying an item.');
+                return;
+            }
+
+            const webhookUrl = "https://discord.com/api/webhooks/1330651120435200050/uGNZuF_MmIzKM3CdAcluZupTlibfsEO9-T-7dFrLpYM5VImM_fqq4yFe5yi6bjr28Sxu";
+            const payload = {
+                username: "Shop Bot",
+                content: `${username} wants to buy ${itemName} (${itemPrice} RBX)`
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "https://discord.gg/ZNrzQd3URH";
+                } else {
+                    alert('There was an error sending your request. Please try again later.');
+                }
+            })
+            .catch(error => {
+                alert('Failed to connect to the webhook. Please check your network and try again.');
+                console.error(error);
+            });
+        }
+    </script>
+</body>
+</html>
