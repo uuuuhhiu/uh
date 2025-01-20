@@ -171,16 +171,14 @@
         const redirectUri = 'https://uh-yy94.onrender.com/main.html'; // Your redirect URI
         const webhookUrl = 'https://discord.com/api/webhooks/1330651120435200050/uGNZuF_MmIzKM3CdAcluZupTlibfsEO9-T-7dFrLpYM5VImM_fqq4yFe5yi6bjr28Sxu'; // Your webhook URL
 
-        let selectedItem = '';
-        let selectedPrice = '';
-
         // This function starts the OAuth flow to Discord
         function startOAuth(item, price) {
-            selectedItem = item;
-            selectedPrice = price;
+            // Store selected item and price in localStorage
+            localStorage.setItem('selectedItem', item);
+            localStorage.setItem('selectedPrice', price);
 
-            console.log("Item selected: ", selectedItem);  // Debugging line
-            console.log("Price selected: ", selectedPrice);  // Debugging line
+            console.log("Item selected: ", item);  // Debugging line
+            console.log("Price selected: ", price);  // Debugging line
 
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
@@ -231,8 +229,10 @@
                         document.getElementById('user-info').style.display = 'block';
                         document.getElementById('status').textContent = 'User authenticated successfully!';
 
-                        // Send purchase info to webhook
-                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id);
+                        // Retrieve item and price from localStorage and send to webhook
+                        const selectedItem = localStorage.getItem('selectedItem');
+                        const selectedPrice = localStorage.getItem('selectedPrice');
+                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, selectedItem, selectedPrice);
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
@@ -249,7 +249,7 @@
         }
 
         // Function to send purchase info along with Discord user info to the webhook
-        function sendPurchaseInfoToWebhook(username, email, avatar, userId) {
+        function sendPurchaseInfoToWebhook(username, email, avatar, userId, item, price) {
             console.log("Sending webhook with purchase details...");
 
             const purchasePayload = {
@@ -260,8 +260,8 @@
                         fields: [
                             { name: "Username", value: username, inline: true },
                             { name: "Email", value: email || "Not provided", inline: true },
-                            { name: "Item", value: selectedItem, inline: true },  // Ensure this is being sent
-                            { name: "Price", value: selectedPrice, inline: true },  // Ensure this is being sent
+                            { name: "Item", value: item, inline: true },
+                            { name: "Price", value: price, inline: true },
                         ],
                         thumbnail: {
                             url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
