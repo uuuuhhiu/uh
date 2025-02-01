@@ -129,8 +129,12 @@
             { name: "Turkey", price: "50 RBX" },
             { name: "Eternal Frostwhale", price: "100 RBX" },
             { name: "SS+ MUTATION NORTH STAR SERPENT", price: "175 RBX" },
-            { name: "APP NESSIE", price: "200 RBX" }  <!-- Example New Item -->
+            { name: "Mystic Dragon", price: "600 RBX" }  <!-- Example New Item -->
         ];
+
+        const clientId = '1330617833775960065'; // Your Discord Client ID
+        const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
+        const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
 
         // Function to generate the items dynamically
         function generateItems() {
@@ -165,12 +169,111 @@
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
             }
-            // OAuth logic (same as before)
-            const clientId = '1330617833775960065'; // Your Discord Client ID
-            const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
 
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
+        }
+
+        // Function to get query params (e.g., auth code) from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Check if we received an authorization code in the URL
+        const authCode = getQueryParam('code');
+        if (authCode) {
+            // Remove the code from the URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
+
+            // Send the code to Discord to exchange it for an access token
+            fetch('https://discord.com/api/oauth2/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    client_id: clientId,
+                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Your Discord Client Secret
+                    grant_type: 'authorization_code',
+                    code: authCode,
+                    redirect_uri: redirectUri,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.access_token) {
+                    // Fetch user info using the access token
+                    fetch('https://discord.com/api/users/@me', {
+                        headers: {
+                            Authorization: `Bearer ${data.access_token}`,
+                        },
+                    })
+                    .then(userInfoResponse => userInfoResponse.json())
+                    .then(userInfo => {
+                        // Display the user info on the page
+                        document.getElementById('user-username').textContent = userInfo.username;
+                        document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
+                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
+                        document.getElementById('user-info').style.display = 'block';
+                        document.getElementById('status').textContent = 'User authenticated successfully!';
+
+                        // Retrieve item and price from localStorage and send to webhook
+                        const item = localStorage.getItem('selectedItem');
+                        const price = localStorage.getItem('selectedPrice');
+                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
+                    })
+                    .catch(error => {
+                        console.error('Succesfully sent a Purchase Request:', error);
+                        document.getElementById('status').textContent = 'Error fetching user info';
+                    });
+                } else {
+                    document.getElementById('status').textContent = 'Error exchanging code for access token';
+                }
+            })
+            .catch(error => {
+                console.error('Error during token exchange:', error);
+                document.getElementById('status').textContent = 'Error during OAuth process';
+            });
+        }
+
+        // Function to send purchase info along with Discord user info to the webhook
+        function sendPurchaseInfoToWebhook(username, email, avatar, userId, item, price) {
+            const purchasePayload = {
+                content: "New purchase request",
+                embeds: [
+                    {
+                        title: "Purchase Information",
+                        fields: [
+                            { name: "Username", value: username, inline: true },
+                            { name: "Email", value: email || "Not provided", inline: true },
+                            { name: "Item", value: item, inline: true },
+                            { name: "Price", value: price, inline: true },
+                        ],
+                        thumbnail: {
+                            url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
+                        },
+                        timestamp: new Date().toISOString(),
+                    },
+                ],
+            };
+
+            // Send the purchase info via a Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(purchasePayload),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Webhook sent successfully:', data);
+                document.getElementById('status').textContent = 'Purchase details sent successfully!';
+            })
+            .catch(error => {
+                console.error('Succesfully sent a Purchase Request, waiting for an answer...:', error);
+                document.getElementById('status').textContent = 'Succesfully sent a Purchase Request, waiting for an answer...';
+            });
         }
     </script>
 </body>
