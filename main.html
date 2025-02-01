@@ -116,10 +116,10 @@
             { name: "1 UNAPP SINISTER", price: "700 RBX" },
             { name: "1 RANDOM UNAPP NESSIE", price: "300 RBX" },
             { name: "100 RELICS", price: "100 RBX" },
-            { name: "TURKEY", price: "50 RBX" },
-            { name: "ETERNAL FROSTWHALE", price: "100 RBX" },
-            { name: "SS+ MUTATION NORTH STAR SERPENT", price: "175 RBX" }
-            { name: "APP NESSIE", price: "200 RBX" }
+            { name: "Turkey", price: "50 RBX" },
+            { name: "Eternal Frostwhale", price: "100 RBX" },
+            { name: "SS+ MUTATION NORTH STAR SERPENT", price: "175 RBX" },
+            { name: "Mystic Dragon", price: "600 RBX" }  <!-- Example New Item -->
         ];
 
         // Function to generate the items dynamically
@@ -139,8 +139,10 @@
             });
         }
 
-        // Generate items on page load
-        generateItems();
+        // Ensure items are generated after page is fully loaded
+        window.onload = function() {
+            generateItems();
+        }
 
         // Real-time currency converter link
         function openCurrencyConverter() {
