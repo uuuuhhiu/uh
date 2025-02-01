@@ -120,50 +120,41 @@
     </header>
 
     <div class="shop">
-        <div class="item">
-            <h3>Turkey</h3>
-            <p>50 RBX</p>
-            <button class="buy-button" onclick="startOAuth('Turkey', '50 RBX')">Buy</button>
-        </div>
-
-        <div class="item">
-            <h3>Eternal Frostwhale</h3>
-            <p>100 RBX</p>
-            <button class="buy-button" onclick="startOAuth('Eternal Frostwhale', '100 RBX')">Buy</button>
-        </div>
-
-        <div class="item">
-            <h3>100 RELICS</h3>
-            <p>100 RBX</p>
-            <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
-        </div>
-
+        <!-- Item 1 -->
         <div class="item">
             <h3>1 RANDOM NESSIE</h3>
             <p>250 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM NESSIE', '250 RBX')">Buy</button>
         </div>
 
-        <div class="item">
-            <h3>1 RANDOM UNAPP NESSIE</h3>
-            <p>300 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
-        </div>
-
+        <!-- Item 2 -->
         <div class="item">
             <h3>1 UNAPP MYTHICAL</h3>
             <p>500 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP MYTHICAL', '500 RBX')">Buy</button>
         </div>
 
+        <!-- Item 3 -->
         <div class="item">
             <h3>1 UNAPP SINISTER</h3>
             <p>700 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP SINISTER', '700 RBX')">Buy</button>
         </div>
+
+        <!-- Item 4 -->
+        <div class="item">
+            <h3>1 RANDOM UNAPP NESSIE</h3>
+            <p>300 RBX</p>
+            <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="item">
+            <h3>100 RELICS</h3>
+            <p>100 RBX</p>
+            <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
+        </div>
     </div>
-
-
 
     <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
 
@@ -187,7 +178,7 @@
                 localStorage.setItem('selectedPrice', price);
             }
 
-            const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
+            const discordAuthUrl = https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email;
             window.location.href = discordAuthUrl;
         }
 
@@ -224,7 +215,7 @@
                     // Fetch user info using the access token
                     fetch('https://discord.com/api/users/@me', {
                         headers: {
-                            Authorization: `Bearer ${data.access_token}`,
+                            Authorization: Bearer ${data.access_token},
                         },
                     })
                     .then(userInfoResponse => userInfoResponse.json())
@@ -232,7 +223,7 @@
                         // Display the user info on the page
                         document.getElementById('user-username').textContent = userInfo.username;
                         document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
-                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
+                        document.getElementById('user-avatar').src = https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png;
                         document.getElementById('user-info').style.display = 'block';
                         document.getElementById('status').textContent = 'User authenticated successfully!';
 
@@ -269,7 +260,7 @@
                             { name: "Price", value: price, inline: true },
                         ],
                         thumbnail: {
-                            url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
+                            url: https://cdn.discordapp.com/avatars/${userId}/${avatar}.png, // User's profile picture as thumbnail
                         },
                         timestamp: new Date().toISOString(),
                     },
