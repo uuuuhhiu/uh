@@ -11,6 +11,7 @@
             color: #fff;
             margin: 0;
             padding: 0;
+            min-height: 100vh; /* Ensure the body covers the full height */
         }
 
         header {
@@ -45,6 +46,7 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
+            margin-top: 30px; /* Add margin so it doesn't clash with header */
         }
 
         .item {
@@ -54,6 +56,11 @@
             text-align: center;
             width: 250px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.05); /* Slight hover effect */
         }
 
         .item h3 {
@@ -89,6 +96,9 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #discord-login:hover {
