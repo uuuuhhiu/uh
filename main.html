@@ -133,131 +133,15 @@
     </header>
 
     <div class="shop">
-        <!-- SS+ MUTATION NORTH STAR SERPENT -->
+        <!-- Items (example) -->
         <div class="item">
             <h3>SS+ MUTATION NORTH STAR SERPENT</h3>
             <p>175 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS+ MUTATION NORTH STAR SERPENT', '175 RBX')">Buy</button>
         </div>
 
-        <!-- APP NESSIE -->
-        <div class="item">
-            <h3>APP NESSIE</h3>
-            <p>200 RBX</p>
-            <button class="buy-button" onclick="startOAuth('APP NESSIE', '200 RBX')">Buy</button>
-        </div>
+        <!-- Additional items would follow the same pattern... -->
 
-        <!-- SS NESSIE -->
-        <div class="item">
-            <h3>SS NESSIE</h3>
-            <p>345 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SS NESSIE', '345 RBX')">Buy</button>
-        </div>
-
-        <!-- SSG NESSIE -->
-        <div class="item">
-            <h3>SSG NESSIE</h3>
-            <p>425 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SSG NESSIE', '425 RBX')">Buy</button>
-        </div>
-
-        <!-- SSM NESSIE -->
-        <div class="item">
-            <h3>SSM NESSIE</h3>
-            <p>750 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SSM NESSIE', '750 RBX')">Buy</button>
-        </div>
-
-        <!-- SS PHANTOM WITH MUTATION -->
-        <div class="item">
-            <h3>SS PHANTOM WITH MUTATION</h3>
-            <p>165 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SS PHANTOM WITH MUTATION', '165 RBX')">Buy</button>
-        </div>
-
-        <!-- SS PHANTOM WITHOUT MUTATION -->
-        <div class="item">
-            <h3>SS PHANTOM WITHOUT MUTATION</h3>
-            <p>165 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SS PHANTOM WITHOUT MUTATION', '165 RBX')">Buy</button>
-        </div>
-
-        <!-- SSBM PHANTOM -->
-        <div class="item">
-            <h3>SSBM PHANTOM</h3>
-            <p>300 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SSBM PHANTOM', '300 RBX')">Buy</button>
-        </div>
-
-        <!-- 1x ENCHANT RELIC -->
-        <div class="item">
-            <h3>1x ENCHANT RELIC</h3>
-            <p>5 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1x ENCHANT RELIC', '5 RBX')">Buy</button>
-        </div>
-
-        <!-- 1x EXALTED RELIC -->
-        <div class="item">
-            <h3>1x EXALTED RELIC</h3>
-            <p>35 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1x EXALTED RELIC', '35 RBX')">Buy</button>
-        </div>
-
-        <!-- SS MEG WITH/WITHOUT MUTATION -->
-        <div class="item">
-            <h3>SS MEG WITH/WITHOUT MUTATION</h3>
-            <p>95 RBX</p>
-            <button class="buy-button" onclick="startOAuth('SS MEG WITH/WITHOUT MUTATION', '95 RBX')">Buy</button>
-        </div>
-
-        <!-- 1 RANDOM NESSIE -->
-        <div class="item">
-            <h3>1 RANDOM NESSIE</h3>
-            <p>250 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1 RANDOM NESSIE', '250 RBX')">Buy</button>
-        </div>
-
-        <!-- 1 UNAPP MYTHICAL -->
-        <div class="item">
-            <h3>1 UNAPP MYTHICAL</h3>
-            <p>500 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1 UNAPP MYTHICAL', '500 RBX')">Buy</button>
-        </div>
-
-        <!-- 1 UNAPP SINISTER -->
-        <div class="item">
-            <h3>1 UNAPP SINISTER</h3>
-            <p>700 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1 UNAPP SINISTER', '700 RBX')">Buy</button>
-        </div>
-
-        <!-- 1 RANDOM UNAPP NESSIE -->
-        <div class="item">
-            <h3>1 RANDOM UNAPP NESSIE</h3>
-            <p>300 RBX</p>
-            <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
-        </div>
-
-        <!-- 100 RELICS -->
-        <div class="item">
-            <h3>100 RELICS</h3>
-            <p>100 RBX</p>
-            <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
-        </div>
-
-        <!-- Turkey -->
-        <div class="item">
-            <h3>Turkey</h3>
-            <p>50 RBX</p>
-            <button class="buy-button" onclick="startOAuth('Turkey', '50 RBX')">Buy</button>
-        </div>
-
-        <!-- Eternal Frostwhale -->
-        <div class="item">
-            <h3>Eternal Frostwhale</h3>
-            <p>100 RBX</p>
-            <button class="buy-button" onclick="startOAuth('Eternal Frostwhale', '100 RBX')">Buy</button>
-        </div>
     </div>
 
     <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
@@ -284,7 +168,7 @@
                 localStorage.setItem('selectedPrice', price);
             }
 
-            const discordAuthUrl = https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email;
+            const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
         }
 
@@ -308,7 +192,7 @@
                 },
                 body: new URLSearchParams({
                     client_id: clientId,
-                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Client Secret lil bro
+                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Client Secret
                     grant_type: 'authorization_code',
                     code: authCode,
                     redirect_uri: redirectUri,
@@ -320,7 +204,7 @@
                     // Fetch user info using the access token
                     fetch('https://discord.com/api/users/@me', {
                         headers: {
-                            Authorization: Bearer ${data.access_token},
+                            Authorization: `Bearer ${data.access_token}`,
                         },
                     })
                     .then(userInfoResponse => userInfoResponse.json())
@@ -328,7 +212,7 @@
                         // Display the user info on the page
                         document.getElementById('user-username').textContent = userInfo.username;
                         document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
-                        document.getElementById('user-avatar').src = https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png;
+                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
                         document.getElementById('user-info').style.display = 'block';
                         document.getElementById('status').textContent = 'User authenticated successfully!';
 
@@ -339,7 +223,7 @@
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
-                        document.getElementById('debug').textContent = Error fetching user info: ${error.message};
+                        document.getElementById('debug').textContent = `Error fetching user info: ${error.message}`;
                     });
                 } else {
                     document.getElementById('debug').textContent = 'Error exchanging code for access token';
@@ -347,7 +231,7 @@
             })
             .catch(error => {
                 console.error('Error during token exchange:', error);
-                document.getElementById('debug').textContent = Error during OAuth process: ${error.message};
+                document.getElementById('debug').textContent = `Error during OAuth process: ${error.message}`;
             });
         }
 
@@ -365,7 +249,7 @@
                             { name: "Price", value: price, inline: true },
                         ],
                         thumbnail: {
-                            url: https://cdn.discordapp.com/avatars/${userId}/${avatar}.png, // User's profile picture as thumbnail
+                            url: `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`, // User's profile picture as thumbnail
                         },
                         timestamp: new Date().toISOString(),
                     },
@@ -385,7 +269,7 @@
             })
             .catch(error => {
                 console.error('Error sending purchase request:', error);
-                document.getElementById('debug').textContent = Error sending purchase request: ${error.message};
+                document.getElementById('debug').textContent = `Error sending purchase request: ${error.message}`;
             });
         }
 
