@@ -58,6 +58,7 @@
         }
 
         .item {
+            position: relative;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
             padding: 25px;
@@ -157,6 +158,45 @@
             z-index: 1000;
         }
 
+        /* Hot Sale and Discount Labels */
+        .hot-sale {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .discount-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #bdc3c7;
+            font-size: 0.9em;
+        }
+
+        .discounted-price {
+            color: #e74c3c;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             header h1 {
@@ -185,65 +225,93 @@
     <div class="shop">
         <!-- 1x ENCHANT RELIC -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1x ENCHANT RELIC</h3>
-            <p>5 RBX</p>
+            <p class="original-price">10 RBX</p>
+            <p class="discounted-price">5 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x ENCHANT RELIC', '5 RBX')">Buy</button>
         </div>
 
         <!-- 1x EXALTED RELIC -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1x EXALTED RELIC</h3>
-            <p>35 RBX</p>
+            <p class="original-price">70 RBX</p>
+            <p class="discounted-price">35 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x EXALTED RELIC', '35 RBX')">Buy</button>
         </div>
 
         <!-- 1 RANDOM NESSIE -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1 RANDOM NESSIE</h3>
-            <p>250 RBX</p>
+            <p class="original-price">500 RBX</p>
+            <p class="discounted-price">250 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM NESSIE', '250 RBX')">Buy</button>
         </div>
 
         <!-- 1 UNAPP MYTHICAL -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1 UNAPP MYTHICAL</h3>
-            <p>500 RBX</p>
+            <p class="original-price">1000 RBX</p>
+            <p class="discounted-price">500 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP MYTHICAL', '500 RBX')">Buy</button>
         </div>
 
         <!-- 1 UNAPP SINISTER -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1 UNAPP SINISTER</h3>
-            <p>700 RBX</p>
+            <p class="original-price">1400 RBX</p>
+            <p class="discounted-price">700 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP SINISTER', '700 RBX')">Buy</button>
         </div>
 
         <!-- 1 RANDOM UNAPP NESSIE -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>1 RANDOM UNAPP NESSIE</h3>
-            <p>300 RBX</p>
+            <p class="original-price">600 RBX</p>
+            <p class="discounted-price">300 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
         </div>
 
         <!-- 100 RELICS -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>100 RELICS</h3>
-            <p>100 RBX</p>
+            <p class="original-price">200 RBX</p>
+            <p class="discounted-price">100 RBX</p>
             <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
         </div>
 
         <!-- Turkey -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>Turkey</h3>
-            <p>50 RBX</p>
+            <p class="original-price">100 RBX</p>
+            <p class="discounted-price">50 RBX</p>
             <button class="buy-button" onclick="startOAuth('Turkey', '50 RBX')">Buy</button>
         </div>
 
         <!-- Eternal Frostwhale -->
         <div class="item">
+            <div class="discount-label">50% OFF</div>
             <h3>Eternal Frostwhale</h3>
-            <p>100 RBX</p>
+            <p class="original-price">200 RBX</p>
+            <p class="discounted-price">100 RBX</p>
             <button class="buy-button" onclick="startOAuth('Eternal Frostwhale', '100 RBX')">Buy</button>
+        </div>
+
+        <!-- SS NESSIE -->
+        <div class="item">
+            <div class="hot-sale">Hot Sale</div>
+            <div class="discount-label">50% OFF</div>
+            <h3>SS NESSIE</h3>
+            <p class="original-price">500 RBX</p>
+            <p class="discounted-price">250 RBX</p>
+            <button class="buy-button" onclick="startOAuth('SS NESSIE', '250 RBX')">Buy</button>
         </div>
     </div>
 
@@ -263,32 +331,35 @@
         const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
         const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
 
-        // This function starts the OAuth flow to Discord
+        // Function to start the OAuth flow with Discord
         function startOAuth(item, price) {
             if (item && price) {
-                // Store selected item and price in localStorage
+                // Store the selected item and price in localStorage
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
             }
 
+            // Redirect the user to Discord's OAuth2 authorization page
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
         }
 
-        // Function to get query params (e.g., auth code) from URL
+        // Function to extract query parameters from the URL
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        // Check if we received an authorization code in the URL
+        // Check if an authorization code is present in the URL
         const authCode = getQueryParam('code');
         if (authCode) {
-            // Remove the code from the URL
+            // Remove the code from the URL to clean it up
             window.history.replaceState({}, document.title, window.location.pathname);
+
+            // Display a loading message
             document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
 
-            // Send the code to Discord to exchange it for an access token
+            // Exchange the authorization code for an access token
             fetch('https://discord.com/api/oauth2/token', {
                 method: 'POST',
                 headers: {
@@ -305,7 +376,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.access_token) {
-                    // Fetch user info using the access token
+                    // Fetch the user's information using the access token
                     fetch('https://discord.com/api/users/@me', {
                         headers: {
                             Authorization: `Bearer ${data.access_token}`,
@@ -313,16 +384,18 @@
                     })
                     .then(userInfoResponse => userInfoResponse.json())
                     .then(userInfo => {
-                        // Display the user info on the page
+                        // Display the user's information on the page
                         document.getElementById('user-username').textContent = userInfo.username;
                         document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
                         document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
                         document.getElementById('user-info').style.display = 'block';
                         document.getElementById('status').textContent = 'User authenticated successfully!';
 
-                        // Retrieve item and price from localStorage and send to webhook
+                        // Retrieve the selected item and price from localStorage
                         const item = localStorage.getItem('selectedItem');
                         const price = localStorage.getItem('selectedPrice');
+
+                        // Send the purchase information to the Discord webhook
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
                     })
                     .catch(error => {
@@ -339,6 +412,7 @@
             });
         }
 
+        // Function to send purchase information to the Discord webhook
         function sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price) {
             const webhookPayload = {
                 content: '',
@@ -359,6 +433,7 @@
                 ],
             };
 
+            // Send the payload to the webhook
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
@@ -377,6 +452,7 @@
             });
         }
 
+        // Function to open the currency converter in a new tab
         function openCurrencyConverter() {
             window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
