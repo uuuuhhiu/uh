@@ -7,122 +7,172 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+            background: linear-gradient(to bottom, #2c3e50, #1c2833);
             color: #fff;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
         }
 
         header {
             background-color: #1a252f;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
         }
 
         .currency-button {
             background-color: #2980b9;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 12px 25px;
+            font-size: 1.1em;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 15px;
         }
 
         .currency-button:hover {
             background-color: #3498db;
+            transform: scale(1.05);
         }
 
         .shop {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 25px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .item {
             background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 280px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
         }
 
         .item h3 {
-            margin: 10px 0;
+            margin: 15px 0;
+            font-size: 1.5em;
+            color: #f1c40f;
         }
 
         .item p {
-            font-size: 1.2em;
-            margin: 10px 0;
+            font-size: 1.3em;
+            margin: 15px 0;
+            color: #ecf0f1;
         }
 
         .buy-button {
             background-color: #e74c3c;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 12px 25px;
+            font-size: 1.1em;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .buy-button:hover {
             background-color: #c0392b;
+            transform: scale(1.05);
         }
 
         #user-info {
             display: none;
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px auto;
         }
 
         #user-info img {
             border-radius: 50%;
-            margin-top: 10px;
+            margin-top: 15px;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #3498db;
         }
 
         #status {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
             font-size: 1.2em;
+            color: #ecf0f1;
         }
 
         #discord-login {
             background-color: #7289da;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 12px 25px;
+            font-size: 1.1em;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         #discord-login:hover {
             background-color: #5d6d8e;
+            transform: scale(1.05);
         }
 
         /* Debug message styling */
         #debug {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             font-size: 0.9em;
             z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .item {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .currency-button, .buy-button, #discord-login {
+                width: 100%;
+                padding: 15px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
