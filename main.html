@@ -12,15 +12,18 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #1a252f;
             padding: 20px;
             text-align: center;
         }
+
         header h1 {
             margin: 0;
             font-size: 2.5em;
         }
+
         .currency-button {
             background-color: #2980b9;
             color: #fff;
@@ -31,9 +34,11 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .currency-button:hover {
             background-color: #3498db;
         }
+
         .shop {
             display: flex;
             flex-wrap: wrap;
@@ -41,6 +46,7 @@
             gap: 20px;
             padding: 20px;
         }
+
         .item {
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
@@ -49,13 +55,16 @@
             width: 250px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+
         .item h3 {
             margin: 10px 0;
         }
+
         .item p {
             font-size: 1.2em;
             margin: 10px 0;
         }
+
         .buy-button {
             background-color: #e74c3c;
             color: #fff;
@@ -66,23 +75,28 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .buy-button:hover {
             background-color: #c0392b;
         }
+
         #user-info {
             display: none;
             margin-top: 20px;
             text-align: center;
         }
+
         #user-info img {
             border-radius: 50%;
             margin-top: 10px;
         }
+
         #status {
             margin-top: 20px;
             text-align: center;
             font-size: 1.2em;
         }
+
         #discord-login {
             background-color: #7289da;
             color: #fff;
@@ -93,9 +107,12 @@
             cursor: pointer;
             margin-top: 20px;
         }
+
         #discord-login:hover {
             background-color: #5d6d8e;
         }
+
+        /* Debug message styling */
         #debug {
             position: fixed;
             bottom: 10px;
@@ -114,6 +131,7 @@
         <h1>The End of Times Stock</h1>
         <button class="currency-button" onclick="openCurrencyConverter()">Real-Time Currency Converter</button>
     </header>
+
     <div class="shop">
         <!-- SS+ MUTATION NORTH STAR SERPENT -->
         <div class="item">
@@ -121,102 +139,119 @@
             <p>175 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS+ MUTATION NORTH STAR SERPENT', '175 RBX')">Buy</button>
         </div>
+
         <!-- APP NESSIE -->
         <div class="item">
             <h3>APP NESSIE</h3>
             <p>200 RBX</p>
             <button class="buy-button" onclick="startOAuth('APP NESSIE', '200 RBX')">Buy</button>
         </div>
+
         <!-- SS NESSIE -->
         <div class="item">
             <h3>SS NESSIE</h3>
             <p>345 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS NESSIE', '345 RBX')">Buy</button>
         </div>
+
         <!-- SSG NESSIE -->
         <div class="item">
             <h3>SSG NESSIE</h3>
             <p>425 RBX</p>
             <button class="buy-button" onclick="startOAuth('SSG NESSIE', '425 RBX')">Buy</button>
         </div>
+
         <!-- SSM NESSIE -->
         <div class="item">
             <h3>SSM NESSIE</h3>
             <p>750 RBX</p>
             <button class="buy-button" onclick="startOAuth('SSM NESSIE', '750 RBX')">Buy</button>
         </div>
+
         <!-- SS PHANTOM WITH MUTATION -->
         <div class="item">
             <h3>SS PHANTOM WITH MUTATION</h3>
             <p>165 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS PHANTOM WITH MUTATION', '165 RBX')">Buy</button>
         </div>
+
         <!-- SS PHANTOM WITHOUT MUTATION -->
         <div class="item">
             <h3>SS PHANTOM WITHOUT MUTATION</h3>
             <p>165 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS PHANTOM WITHOUT MUTATION', '165 RBX')">Buy</button>
         </div>
+
         <!-- SSBM PHANTOM -->
         <div class="item">
             <h3>SSBM PHANTOM</h3>
             <p>300 RBX</p>
             <button class="buy-button" onclick="startOAuth('SSBM PHANTOM', '300 RBX')">Buy</button>
         </div>
+
         <!-- 1x ENCHANT RELIC -->
         <div class="item">
             <h3>1x ENCHANT RELIC</h3>
             <p>5 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x ENCHANT RELIC', '5 RBX')">Buy</button>
         </div>
+
         <!-- 1x EXALTED RELIC -->
         <div class="item">
             <h3>1x EXALTED RELIC</h3>
             <p>35 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x EXALTED RELIC', '35 RBX')">Buy</button>
         </div>
+
         <!-- SS MEG WITH/WITHOUT MUTATION -->
         <div class="item">
             <h3>SS MEG WITH/WITHOUT MUTATION</h3>
             <p>95 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS MEG WITH/WITHOUT MUTATION', '95 RBX')">Buy</button>
         </div>
+
         <!-- 1 RANDOM NESSIE -->
         <div class="item">
             <h3>1 RANDOM NESSIE</h3>
             <p>250 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM NESSIE', '250 RBX')">Buy</button>
         </div>
+
         <!-- 1 UNAPP MYTHICAL -->
         <div class="item">
             <h3>1 UNAPP MYTHICAL</h3>
             <p>500 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP MYTHICAL', '500 RBX')">Buy</button>
         </div>
+
         <!-- 1 UNAPP SINISTER -->
         <div class="item">
             <h3>1 UNAPP SINISTER</h3>
             <p>700 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP SINISTER', '700 RBX')">Buy</button>
         </div>
+
         <!-- 1 RANDOM UNAPP NESSIE -->
         <div class="item">
             <h3>1 RANDOM UNAPP NESSIE</h3>
             <p>300 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
         </div>
+
         <!-- 100 RELICS -->
         <div class="item">
             <h3>100 RELICS</h3>
             <p>100 RBX</p>
             <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
         </div>
+
         <!-- Turkey -->
         <div class="item">
             <h3>Turkey</h3>
             <p>50 RBX</p>
             <button class="buy-button" onclick="startOAuth('Turkey', '50 RBX')">Buy</button>
         </div>
+
         <!-- Eternal Frostwhale -->
         <div class="item">
             <h3>Eternal Frostwhale</h3>
@@ -224,34 +259,48 @@
             <button class="buy-button" onclick="startOAuth('Eternal Frostwhale', '100 RBX')">Buy</button>
         </div>
     </div>
+
     <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
+
     <div id="status"></div>
     <div id="user-info">
         <p><strong>Username:</strong> <span id="user-username"></span></p>
         <p><strong>Email:</strong> <span id="user-email"></span></p>
         <img id="user-avatar" src="" alt="User Avatar" />
     </div>
+
     <div id="debug">Debug: Loading...</div>
+
     <script>
-        const clientId = '1330617833775960065';
-        const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; 
-        const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; 
+        const clientId = '1330617833775960065'; // Your Discord Client ID
+        const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
+        const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
+
+        // This function starts the OAuth flow to Discord
         function startOAuth(item, price) {
             if (item && price) {
+                // Store selected item and price in localStorage
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
             }
+
             const discordAuthUrl = https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email;
             window.location.href = discordAuthUrl;
         }
+
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
+
+        // Check if we received an authorization code in the URL
         const authCode = getQueryParam('code');
         if (authCode) {
+            // Remove the code from the URL
             window.history.replaceState({}, document.title, window.location.pathname);
             document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
+
+            // token exchange
             fetch('https://discord.com/api/oauth2/token', {
                 method: 'POST',
                 headers: {
@@ -259,7 +308,7 @@
                 },
                 body: new URLSearchParams({
                     client_id: clientId,
-                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', 
+                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Client Secret lil bro
                     grant_type: 'authorization_code',
                     code: authCode,
                     redirect_uri: redirectUri,
@@ -268,6 +317,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.access_token) {
+                    // Fetch user info using the access token
                     fetch('https://discord.com/api/users/@me', {
                         headers: {
                             Authorization: Bearer ${data.access_token},
@@ -275,11 +325,14 @@
                     })
                     .then(userInfoResponse => userInfoResponse.json())
                     .then(userInfo => {
+                        // Display the user info on the page
                         document.getElementById('user-username').textContent = userInfo.username;
                         document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
                         document.getElementById('user-avatar').src = https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png;
                         document.getElementById('user-info').style.display = 'block';
                         document.getElementById('status').textContent = 'User authenticated successfully!';
+
+                        // Retrieve item and price from localStorage and send to webhook
                         const item = localStorage.getItem('selectedItem');
                         const price = localStorage.getItem('selectedPrice');
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
@@ -297,6 +350,8 @@
                 document.getElementById('debug').textContent = Error during OAuth process: ${error.message};
             });
         }
+
+        // Function to send purchase info along with Discord user info to the webhook
         function sendPurchaseInfoToWebhook(username, email, avatar, userId, item, price) {
             const purchasePayload = {
                 content: "New purchase request",
@@ -310,12 +365,14 @@
                             { name: "Price", value: price, inline: true },
                         ],
                         thumbnail: {
-                            url: https://cdn.discordapp.com/avatars/${userId}/${avatar}.png,
+                            url: https://cdn.discordapp.com/avatars/${userId}/${avatar}.png, // User's profile picture as thumbnail
                         },
                         timestamp: new Date().toISOString(),
                     },
                 ],
             };
+
+            // Send the purchase info via a Discord webhook
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -331,6 +388,8 @@
                 document.getElementById('debug').textContent = Error sending purchase request: ${error.message};
             });
         }
+
+        // Real-time currency converter link
         function openCurrencyConverter() {
             window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
