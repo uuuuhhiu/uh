@@ -288,7 +288,6 @@
             window.location.href = discordAuthUrl;
         }
 
-        // Function to get query params (e.g., auth code) from URL
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -301,7 +300,7 @@
             window.history.replaceState({}, document.title, window.location.pathname);
             document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
 
-            // Send the code to Discord to exchange it for an access token
+            // token exchange
             fetch('https://discord.com/api/oauth2/token', {
                 method: 'POST',
                 headers: {
@@ -309,7 +308,7 @@
                 },
                 body: new URLSearchParams({
                     client_id: clientId,
-                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Your Discord Client Secret
+                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Client Secret lil bro
                     grant_type: 'authorization_code',
                     code: authCode,
                     redirect_uri: redirectUri,
