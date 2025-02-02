@@ -111,6 +111,19 @@
         #discord-login:hover {
             background-color: #5d6d8e;
         }
+
+        /* Debug message styling */
+        #debug {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -120,12 +133,10 @@
     </header>
 
     <div class="shop">
-        <!-- Existing items here -->
-
         <!-- New Item 1: SS+ MUTATION NORTH STAR SERPENT -->
         <div class="item">
             <h3>SS+ MUTATION NORTH STAR SERPENT</h3>
-            <p>200 RBX</p>
+            <p>175 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS+ MUTATION NORTH STAR SERPENT', '175 RBX')">Buy</button>
         </div>
 
@@ -180,6 +191,8 @@
         <p><strong>Email:</strong> <span id="user-email"></span></p>
         <img id="user-avatar" src="" alt="User Avatar" />
     </div>
+
+    <div id="debug">Debug: Loading...</div>
 
     <script>
         const clientId = '1330617833775960065'; // Your Discord Client ID
@@ -250,15 +263,15 @@
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
-                        document.getElementById('status').textContent = 'Error fetching user info';
+                        document.getElementById('debug').textContent = `Error fetching user info: ${error.message}`;
                     });
                 } else {
-                    document.getElementById('status').textContent = 'Error exchanging code for access token';
+                    document.getElementById('debug').textContent = 'Error exchanging code for access token';
                 }
             })
             .catch(error => {
                 console.error('Error during token exchange:', error);
-                document.getElementById('status').textContent = 'Error during OAuth process';
+                document.getElementById('debug').textContent = `Error during OAuth process: ${error.message}`;
             });
         }
 
@@ -296,7 +309,7 @@
             })
             .catch(error => {
                 console.error('Error sending purchase request:', error);
-                document.getElementById('status').textContent = 'Error sending purchase request';
+                document.getElementById('debug').textContent = `Error sending purchase request: ${error.message}`;
             });
         }
 
