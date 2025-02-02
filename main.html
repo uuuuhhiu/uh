@@ -11,7 +11,6 @@
             color: #fff;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Ensure the body covers the full height */
         }
 
         header {
@@ -46,7 +45,6 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
-            margin-top: 30px; /* Add margin so it doesn't clash with header */
         }
 
         .item {
@@ -56,11 +54,6 @@
             text-align: center;
             width: 250px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .item:hover {
-            transform: scale(1.05); /* Slight hover effect */
         }
 
         .item h3 {
@@ -87,6 +80,23 @@
             background-color: #c0392b;
         }
 
+        #user-info {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #user-info img {
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+
+        #status {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
         #discord-login {
             background-color: #7289da;
             color: #fff;
@@ -96,9 +106,6 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         #discord-login:hover {
@@ -112,60 +119,77 @@
         <button class="currency-button" onclick="openCurrencyConverter()">Real-Time Currency Converter</button>
     </header>
 
-    <div class="shop" id="shop">
-        <!-- Items will be dynamically inserted here -->
+    <div class="shop">
+        <!-- Existing items here -->
+
+        <!-- New Item 1: SS+ MUTATION NORTH STAR SERPENT -->
+        <div class="item">
+            <h3>SS+ MUTATION NORTH STAR SERPENT</h3>
+            <p>175 RBX</p>
+            <button class="buy-button" onclick="startOAuth('SS+ MUTATION NORTH STAR SERPENT', '175 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 2: APP NESSIE -->
+        <div class="item">
+            <h3>APP NESSIE</h3>
+            <p>200 RBX</p>
+            <button class="buy-button" onclick="startOAuth('APP NESSIE', '200 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 3: SS NESSIE WITH/WITHOUT MUTATION -->
+        <div class="item">
+            <h3>SS NESSIE WITH/WITHOUT MUTATION</h3>
+            <p>400 RBX</p>
+            <button class="buy-button" onclick="startOAuth('SS NESSIE WITH/WITHOUT MUTATION', '400 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 4: 1x ENCHANT RELIC -->
+        <div class="item">
+            <h3>1x ENCHANT RELIC</h3>
+            <p>5 RBX</p>
+            <button class="buy-button" onclick="startOAuth('1x ENCHANT RELIC', '5 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 5: 1x EXALTED RELIC -->
+        <div class="item">
+            <h3>1x EXALTED RELIC</h3>
+            <p>35 RBX</p>
+            <button class="buy-button" onclick="startOAuth('1x EXALTED RELIC', '35 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 6: SS MEG WITH/WITHOUT MUTATION -->
+        <div class="item">
+            <h3>SS MEG WITH/WITHOUT MUTATION</h3>
+            <p>95 RBX</p>
+            <button class="buy-button" onclick="startOAuth('SS MEG WITH/WITHOUT MUTATION', '95 RBX')">Buy</button>
+        </div>
+
+        <!-- New Item 7: SS PHANTOM WITH/WITHOUT MUTATION -->
+        <div class="item">
+            <h3>SS PHANTOM WITH/WITHOUT MUTATION</h3>
+            <p>165 RBX</p>
+            <button class="buy-button" onclick="startOAuth('SS PHANTOM WITH/WITHOUT MUTATION', '165 RBX')">Buy</button>
+        </div>
     </div>
 
     <button id="discord-login" onclick="startOAuth()">Authorize with Discord</button>
 
-    <script>
-        // Array of items
-        const items = [
-            { name: "1 RANDOM NESSIE", price: "250 RBX" },
-            { name: "1 UNAPP MYTHICAL", price: "500 RBX" },
-            { name: "1 UNAPP SINISTER", price: "700 RBX" },
-            { name: "1 RANDOM UNAPP NESSIE", price: "300 RBX" },
-            { name: "100 RELICS", price: "100 RBX" },
-            { name: "Turkey", price: "50 RBX" },
-            { name: "Eternal Frostwhale", price: "100 RBX" },
-            { name: "SS+ MUTATION NORTH STAR SERPENT", price: "175 RBX" },
-            { name: "APP NESSIE", price: "200 RBX" }  <!-- Example New Item -->
-        ];
+    <div id="status"></div>
+    <div id="user-info">
+        <p><strong>Username:</strong> <span id="user-username"></span></p>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <img id="user-avatar" src="" alt="User Avatar" />
+    </div>
 
+    <script>
         const clientId = '1330617833775960065'; // Your Discord Client ID
         const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
         const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
 
-        // Function to generate the items dynamically
-        function generateItems() {
-            const shopContainer = document.getElementById('shop');
-            items.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.classList.add('item');
-                
-                itemElement.innerHTML = `
-                    <h3>${item.name}</h3>
-                    <p>${item.price}</p>
-                    <button class="buy-button" onclick="startOAuth('${item.name}', '${item.price}')">Buy</button>
-                `;
-                
-                shopContainer.appendChild(itemElement);
-            });
-        }
-
-        // Ensure items are generated after page is fully loaded
-        window.onload = function() {
-            generateItems();
-        }
-
-        // Real-time currency converter link
-        function openCurrencyConverter() {
-            window.open("https://www.xe.com/currencyconverter/", "_blank");
-        }
-
-        // Function to start OAuth (for simplicity, OAuth code remains the same as before)
+        // This function starts the OAuth flow to Discord
         function startOAuth(item, price) {
             if (item && price) {
+                // Store selected item and price in localStorage
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
             }
@@ -225,7 +249,7 @@
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
                     })
                     .catch(error => {
-                        console.error('Succesfully sent a Purchase Request:', error);
+                        console.error('Error fetching user info:', error);
                         document.getElementById('status').textContent = 'Error fetching user info';
                     });
                 } else {
@@ -271,9 +295,14 @@
                 document.getElementById('status').textContent = 'Purchase details sent successfully!';
             })
             .catch(error => {
-                console.error('Succesfully sent a Purchase Request, waiting for an answer...:', error);
-                document.getElementById('status').textContent = 'Succesfully sent a Purchase Request, waiting for an answer...';
+                console.error('Error sending purchase request:', error);
+                document.getElementById('status').textContent = 'Error sending purchase request';
             });
+        }
+
+        // Real-time currency converter link
+        function openCurrencyConverter() {
+            window.open("https://www.xe.com/currencyconverter/", "_blank");
         }
     </script>
 </body>
