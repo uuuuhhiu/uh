@@ -19,6 +19,7 @@
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         header h1 {
@@ -28,6 +29,26 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: #fff;
+        }
+
+        .shop-button {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .shop-button:hover {
+            background-color: #3498db;
+            transform: translateY(-50%) scale(1.05);
         }
 
         .currency-button {
@@ -213,11 +234,18 @@
                 padding: 15px;
                 font-size: 1em;
             }
+
+            .shop-button {
+                position: static;
+                transform: none;
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
+        <button class="shop-button" onclick="window.location.href='https://auroravip-fisch.onrender.com/main2.html'">Shop 2</button>
         <h1>Super Media Stock</h1>
         <button class="currency-button" onclick="openCurrencyConverter()">Real-Time Currency Converter</button>
     </header>
