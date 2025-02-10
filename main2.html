@@ -243,6 +243,29 @@
             margin-top: 10px;
         }
 
+        /* Discount Names */
+        .discount-name {
+            font-size: 0.9em;
+            color: #f1c40f;
+            margin-top: 5px;
+        }
+
+        /* Rainbow Text Animation */
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            14% { color: #ff7f00; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            57% { color: #0000ff; }
+            71% { color: #4b0082; }
+            85% { color: #9400d3; }
+            100% { color: #ff0000; }
+        }
+
+        .rainbow-text {
+            animation: rainbow 6s infinite;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             header h1 {
@@ -275,6 +298,7 @@
             <h3>Lunar Lovestorm Eel</h3>
             <p class="original-price">450 RBX</p>
             <p class="discounted-price">225 RBX</p>
+            <p class="discount-name">Valentines Discount</p>
             <button class="buy-button" onclick="startOAuth('Lunar Lovestorm Eel', '225 RBX')">Buy</button>
         </div>
 
@@ -284,6 +308,7 @@
             <h3>Big Glossy Lovestorm Eel</h3>
             <p class="original-price">700 RBX</p>
             <p class="discounted-price">350 RBX</p>
+            <p class="discount-name">Valentines Discount</p>
             <button class="buy-button" onclick="startOAuth('Big Glossy Lovestorm Eel', '350 RBX')">Buy</button>
         </div>
 
@@ -293,6 +318,7 @@
             <h3>Shiny Orca</h3>
             <p class="original-price">400 RBX</p>
             <p class="discounted-price">200 RBX</p>
+            <p class="discount-name">Valentines Discount</p>
             <button class="buy-button" onclick="startOAuth('Shiny Orca', '200 RBX')">Buy</button>
         </div>
 
@@ -320,9 +346,10 @@
         <!-- Giant Whale Shark -->
         <div class="item golden-background">
             <div class="discount-label">50% OFF</div>
-            <h3>Giant Whale Shark</h3>
+            <h3 class="rainbow-text">Giant Whale Shark</h3>
             <p class="original-price">350 RBX</p>
             <p class="discounted-price">175 RBX</p>
+            <p class="discount-name">Top Discount</p>
             <button class="buy-button" onclick="startOAuth('Giant Whale Shark', '175 RBX')">Buy</button>
         </div>
 
@@ -332,6 +359,7 @@
             <h3>Blighted Megalodon</h3>
             <p class="original-price">750 RBX</p>
             <p class="discounted-price">75 RBX</p>
+            <p class="discount-name">Starter Prices</p>
             <button class="buy-button" onclick="startOAuth('Blighted Megalodon', '75 RBX')">Buy</button>
         </div>
 
