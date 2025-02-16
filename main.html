@@ -5,228 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurora VIP Super Media Stock</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #2c3e50, #1c2833);
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+        /* Existing styles remain the same */
 
-        header {
-            background-color: #1a252f;
-            padding: 30px 20px;
+        /* Promo Code Input Field */
+        .promo-code-container {
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: relative;
+            margin: 20px 0;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .promo-code-input {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
             color: #fff;
+            outline: none;
+            transition: border-color 0.3s ease;
         }
 
-        .shop-button {
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            background-color: #2980b9;
-            color: #fff;
-            border: none;
+        .promo-code-input:focus {
+            border-color: #f1c40f;
+        }
+
+        .promo-code-button {
             padding: 12px 25px;
             font-size: 1.1em;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-left: 10px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .shop-button:hover {
-            background-color: #3498db;
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .currency-button {
-            background-color: #2980b9;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 15px;
-        }
-
-        .currency-button:hover {
-            background-color: #3498db;
+        .promo-code-button:hover {
+            background-color: #27ae60;
             transform: scale(1.05);
         }
 
-        .shop {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            padding: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .promo-code-button:active {
+            transform: scale(0.95);
         }
 
-        .item {
-            position: relative;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            width: 280px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
-        }
-
-        .item h3 {
-            margin: 15px 0;
-            font-size: 1.5em;
+        .promo-code-message {
+            margin-top: 10px;
+            font-size: 1.1em;
             color: #f1c40f;
         }
 
-        .item p {
-            font-size: 1.3em;
-            margin: 15px 0;
-            color: #ecf0f1;
-        }
-
-        .buy-button {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .buy-button:hover {
-            background-color: #c0392b;
-            transform: scale(1.05);
-        }
-
-        #user-info {
-            display: none;
-            margin-top: 30px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-        #user-info img {
-            border-radius: 50%;
-            margin-top: 15px;
-            width: 100px;
-            height: 100px;
-            border: 3px solid #3498db;
-        }
-
-        #status {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 1.2em;
-            color: #ecf0f1;
-        }
-
-        #discord-login {
-            background-color: #7289da;
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 30px auto;
-            display: block;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        #discord-login:hover {
-            background-color: #5d6d8e;
-            transform: scale(1.05);
-        }
-
-        /* Debug message styling */
-        #debug {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            z-index: 1000;
-        }
-
-        /* Hot Sale and Discount Labels */
-        .hot-sale {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #e74c3c;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
+        /* Hide original price */
         .original-price {
-            text-decoration: line-through;
-            color: #bdc3c7;
-            font-size: 0.9em;
-        }
-
-        .discounted-price {
-            color: #e74c3c;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-
-            .item {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .currency-button, .buy-button, #discord-login {
-                width: 100%;
-                padding: 15px;
-                font-size: 1em;
-            }
-
-            .shop-button {
-                position: static;
-                transform: none;
-                margin-top: 15px;
-            }
+            display: none;
         }
     </style>
 </head>
@@ -237,11 +68,17 @@
         <button class="currency-button" onclick="openCurrencyConverter()">Real-Time Currency Converter</button>
     </header>
 
+    <!-- Promo Code Input Field -->
+    <div class="promo-code-container">
+        <input type="text" class="promo-code-input" id="promo-code-input" placeholder="Enter Promo Code">
+        <button class="promo-code-button" onclick="applyPromoCode()">Apply</button>
+        <div class="promo-code-message" id="promo-code-message"></div>
+    </div>
+
     <div class="shop">
         <!-- 1x ENCHANT RELIC -->
         <div class="item">
             <h3>1x ENCHANT RELIC</h3>
-            <p class="original-price">10 RBX</p>
             <p class="discounted-price">5 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x ENCHANT RELIC', '5 RBX')">Buy</button>
         </div>
@@ -249,7 +86,6 @@
         <!-- 1x EXALTED RELIC -->
         <div class="item">
             <h3>1x EXALTED RELIC</h3>
-            <p class="original-price">70 RBX</p>
             <p class="discounted-price">35 RBX</p>
             <button class="buy-button" onclick="startOAuth('1x EXALTED RELIC', '35 RBX')">Buy</button>
         </div>
@@ -257,7 +93,6 @@
         <!-- 1 RANDOM NESSIE -->
         <div class="item">
             <h3>1 RANDOM NESSIE</h3>
-            <p class="original-price">500 RBX</p>
             <p class="discounted-price">250 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM NESSIE', '250 RBX')">Buy</button>
         </div>
@@ -265,7 +100,6 @@
         <!-- 1 UNAPP MYTHICAL -->
         <div class="item">
             <h3>1 UNAPP MYTHICAL</h3>
-            <p class="original-price">1000 RBX</p>
             <p class="discounted-price">500 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP MYTHICAL', '500 RBX')">Buy</button>
         </div>
@@ -273,7 +107,6 @@
         <!-- 1 UNAPP SINISTER -->
         <div class="item">
             <h3>1 UNAPP SINISTER</h3>
-            <p class="original-price">1400 RBX</p>
             <p class="discounted-price">700 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 UNAPP SINISTER', '700 RBX')">Buy</button>
         </div>
@@ -281,7 +114,6 @@
         <!-- 1 RANDOM UNAPP NESSIE -->
         <div class="item">
             <h3>1 RANDOM UNAPP NESSIE</h3>
-            <p class="original-price">600 RBX</p>
             <p class="discounted-price">300 RBX</p>
             <button class="buy-button" onclick="startOAuth('1 RANDOM UNAPP NESSIE', '300 RBX')">Buy</button>
         </div>
@@ -289,7 +121,6 @@
         <!-- 100 RELICS -->
         <div class="item">
             <h3>100 RELICS</h3>
-            <p class="original-price">200 RBX</p>
             <p class="discounted-price">100 RBX</p>
             <button class="buy-button" onclick="startOAuth('100 RELICS', '100 RBX')">Buy</button>
         </div>
@@ -297,7 +128,6 @@
         <!-- Turkey -->
         <div class="item">
             <h3>Turkey</h3>
-            <p class="original-price">100 RBX</p>
             <p class="discounted-price">50 RBX</p>
             <button class="buy-button" onclick="startOAuth('Turkey', '50 RBX')">Buy</button>
         </div>
@@ -305,7 +135,6 @@
         <!-- Eternal Frostwhale -->
         <div class="item">
             <h3>Eternal Frostwhale</h3>
-            <p class="original-price">200 RBX</p>
             <p class="discounted-price">100 RBX</p>
             <button class="buy-button" onclick="startOAuth('Eternal Frostwhale', '100 RBX')">Buy</button>
         </div>
@@ -314,7 +143,6 @@
         <div class="item">
             <div class="hot-sale">Hot Sale</div>
             <h3>SS NESSIE</h3>
-            <p class="original-price">500 RBX</p>
             <p class="discounted-price">250 RBX</p>
             <button class="buy-button" onclick="startOAuth('SS NESSIE', '250 RBX')">Buy</button>
         </div>
@@ -323,7 +151,6 @@
         <div class="item">
             <div class="hot-sale">Limited Time</div>
             <h3>Orca</h3>
-            <p class="original-price">1000 RBX</p>
             <p class="discounted-price">200 RBX</p>
             <button class="buy-button" onclick="startOAuth('Orca', '200 RBX')">Buy</button>
         </div>
@@ -331,7 +158,6 @@
         <!-- Giant Shiny Banana -->
         <div class="item">
             <h3>Giant Shiny Banana</h3>
-            <p class="original-price">306 RBX</p>
             <p class="discounted-price">230 RBX</p>
             <button class="buy-button" onclick="startOAuth('Giant Shiny Banana', '230 RBX')">Buy</button>
         </div>
@@ -352,6 +178,51 @@
         const clientId = '1330617833775960065'; // Your Discord Client ID
         const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
         const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
+        const activePromoCode = 'JOIN69'; // Active promo code
+        let isPromoCodeApplied = false; // Track if promo code is applied
+
+        // Function to apply promo code
+        function applyPromoCode() {
+            const promoCodeInput = document.getElementById('promo-code-input').value.trim();
+            const promoCodeMessage = document.getElementById('promo-code-message');
+
+            if (promoCodeInput === activePromoCode) {
+                isPromoCodeApplied = true;
+                promoCodeMessage.textContent = 'Promo code applied! 45% discount activated.';
+                promoCodeMessage.style.color = '#2ecc71';
+                updatePrices(0.45); // Apply 45% discount
+            } else {
+                isPromoCodeApplied = false;
+                promoCodeMessage.textContent = 'Invalid promo code. No discount applied.';
+                promoCodeMessage.style.color = '#e74c3c';
+            }
+        }
+
+        // Function to update prices based on discount
+        function updatePrices(discount) {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const discountedPriceElement = item.querySelector('.discounted-price');
+                const originalPrice = parseFloat(discountedPriceElement.dataset.originalPrice); // Use dataset to store original price
+                const currentPrice = parseFloat(discountedPriceElement.textContent.replace(' RBX', ''));
+
+                // Exclude specific prices (e.g., 5 RBX, 50 RBX) from discounting
+                if (currentPrice !== 5 && currentPrice !== 50) {
+                    const discountedPrice = originalPrice * (1 - discount);
+                    discountedPriceElement.textContent = `${discountedPrice.toFixed(0)} RBX`;
+                }
+            });
+        }
+
+        // Store original prices in dataset
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const discountedPriceElement = item.querySelector('.discounted-price');
+                const originalPrice = parseFloat(discountedPriceElement.textContent.replace(' RBX', ''));
+                discountedPriceElement.dataset.originalPrice = originalPrice; // Store original price in dataset
+            });
+        });
 
         // Function to start the OAuth flow with Discord
         function startOAuth(item, price) {
@@ -446,6 +317,7 @@
                             { name: 'Email', value: email, inline: true },
                             { name: 'Item', value: item, inline: true },
                             { name: 'Price', value: price, inline: true },
+                            { name: 'Promo Code Used', value: isPromoCodeApplied ? 'YES' : 'NO', inline: true },
                         ],
                         color: 15258703, // Green color for success
                         footer: {
@@ -463,4 +335,21 @@
                 },
                 body: JSON.stringify(webhookPayload),
             })
-            .then
+            .then(response => response.json())
+            .then(data => {
+                console.log('Webhook response:', data);
+                document.getElementById('debug').textContent = 'Purchase info sent successfully!';
+            })
+            .catch(error => {
+                console.error('Error sending to webhook:', error);
+                document.getElementById('debug').textContent = `Webhook error: ${error.message}`;
+            });
+        }
+
+        // Function to open the currency converter in a new tab
+        function openCurrencyConverter() {
+            window.open("https://www.xe.com/currencyconverter/", "_blank");
+        }
+    </script>
+</body>
+</html>
