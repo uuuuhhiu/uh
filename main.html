@@ -370,11 +370,13 @@
 
             if (promoCodeInput === activePromoCode) {
                 localStorage.setItem('isPromoCodeApplied', 'true'); // Store promo code status in localStorage
-                promoCodeMessage.textContent = 'Promo code applied! 45% discount activated.';
+                localStorage.setItem('usedPromoCode', promoCodeInput); // Store the actual promo code used
+                promoCodeMessage.textContent = `Promo code "${promoCodeInput}" applied! 45% discount activated.`;
                 promoCodeMessage.style.color = '#2ecc71';
                 updatePrices(0.45); // Apply 45% discount
             } else {
                 localStorage.setItem('isPromoCodeApplied', 'false'); // Store promo code status in localStorage
+                localStorage.removeItem('usedPromoCode'); // Remove the stored promo code if invalid
                 promoCodeMessage.textContent = 'Invalid promo code. No discount applied.';
                 promoCodeMessage.style.color = '#e74c3c';
             }
@@ -408,7 +410,8 @@
             // Check if a promo code was previously applied
             const isPromoCodeApplied = localStorage.getItem('isPromoCodeApplied') === 'true';
             if (isPromoCodeApplied) {
-                document.getElementById('promo-code-message').textContent = 'Promo code applied! 45% discount activated.';
+                const usedPromoCode = localStorage.getItem('usedPromoCode');
+                document.getElementById('promo-code-message').textContent = `Promo code "${usedPromoCode}" applied! 45% discount activated.`;
                 document.getElementById('promo-code-message').style.color = '#2ecc71';
                 updatePrices(0.45); // Apply 45% discount
             }
@@ -478,15 +481,17 @@
                         const item = localStorage.getItem('selectedItem');
                         const price = localStorage.getItem('selectedPrice');
 
-                        // Retrieve the promo code status from localStorage
+                        // Retrieve the promo code status and the actual promo code used from localStorage
                         const isPromoCodeApplied = localStorage.getItem('isPromoCodeApplied') === 'true';
-                        const promoCodeUsed = isPromoCodeApplied ? `YES (${document.getElementById('promo-code-input').value})` : 'NO';
+                        const usedPromoCode = localStorage.getItem('usedPromoCode');
+                        const promoCodeUsed = isPromoCodeApplied ? `YES (${usedPromoCode})` : 'NO';
 
                         // Send the purchase information to the Discord webhook
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price, promoCodeUsed);
 
                         // Reset promo code status after sending the webhook
                         localStorage.setItem('isPromoCodeApplied', 'false');
+                        localStorage.removeItem('usedPromoCode'); // Clear the used promo code
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
