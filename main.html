@@ -362,7 +362,6 @@
         const redirectUri = 'https://auroravip-fisch.onrender.com/main.html'; // Your redirect URI
         const webhookUrl = 'https://discord.com/api/webhooks/1331611167780634684/posNw_cyq1mFbbgBmnOGbFwpznNclrecHEn8funaDlulfdv-mws5fPsN6zOtut7gwWNN'; // Your webhook URL
         const activePromoCode = 'JOIN69'; // Active promo code
-        let isPromoCodeApplied = false; // Track if promo code is applied
 
         // Function to apply promo code
         function applyPromoCode() {
@@ -370,12 +369,12 @@
             const promoCodeMessage = document.getElementById('promo-code-message');
 
             if (promoCodeInput === activePromoCode) {
-                isPromoCodeApplied = true;
+                localStorage.setItem('isPromoCodeApplied', 'true'); // Store promo code status in localStorage
                 promoCodeMessage.textContent = 'Promo code applied! 45% discount activated.';
                 promoCodeMessage.style.color = '#2ecc71';
                 updatePrices(0.45); // Apply 45% discount
             } else {
-                isPromoCodeApplied = false;
+                localStorage.setItem('isPromoCodeApplied', 'false'); // Store promo code status in localStorage
                 promoCodeMessage.textContent = 'Invalid promo code. No discount applied.';
                 promoCodeMessage.style.color = '#e74c3c';
             }
@@ -405,6 +404,14 @@
                 const originalPrice = parseFloat(discountedPriceElement.textContent.replace(' RBX', ''));
                 discountedPriceElement.dataset.originalPrice = originalPrice; // Store original price in dataset
             });
+
+            // Check if a promo code was previously applied
+            const isPromoCodeApplied = localStorage.getItem('isPromoCodeApplied') === 'true';
+            if (isPromoCodeApplied) {
+                document.getElementById('promo-code-message').textContent = 'Promo code applied! 45% discount activated.';
+                document.getElementById('promo-code-message').style.color = '#2ecc71';
+                updatePrices(0.45); // Apply 45% discount
+            }
         });
 
         // Function to start the OAuth flow with Discord
@@ -471,11 +478,15 @@
                         const item = localStorage.getItem('selectedItem');
                         const price = localStorage.getItem('selectedPrice');
 
-                        // Include the promo code used in the webhook
+                        // Retrieve the promo code status from localStorage
+                        const isPromoCodeApplied = localStorage.getItem('isPromoCodeApplied') === 'true';
                         const promoCodeUsed = isPromoCodeApplied ? `YES (${document.getElementById('promo-code-input').value})` : 'NO';
 
                         // Send the purchase information to the Discord webhook
                         sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price, promoCodeUsed);
+
+                        // Reset promo code status after sending the webhook
+                        localStorage.setItem('isPromoCodeApplied', 'false');
                     })
                     .catch(error => {
                         console.error('Error fetching user info:', error);
