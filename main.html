@@ -500,7 +500,7 @@
                         title: 'New Purchase',
                         fields: [
                             { name: 'Username', value: username, inline: true },
-                            { name: 'Email', value: email, inline: true },
+                            { name: 'Email', value: email || 'Not provided', inline: true },
                             { name: 'Item', value: item, inline: true },
                             { name: 'Price', value: price, inline: true },
                             { name: 'Promo Code Used', value: promoCodeUsed, inline: true },
