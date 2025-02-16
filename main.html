@@ -166,6 +166,19 @@
             transform: scale(1.05);
         }
 
+        /* Debug message styling */
+        #debug {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            z-index: 1000;
+        }
+
         /* Promo Code Input Field */
         .promo-code-container {
             text-align: center;
@@ -202,6 +215,10 @@
         .promo-code-button:hover {
             background-color: #27ae60;
             transform: scale(1.05);
+        }
+
+        .promo-code-button:active {
+            transform: scale(0.95);
         }
 
         .promo-code-message {
@@ -396,79 +413,19 @@
                 // Store the selected item and price in localStorage
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
+
+                // Send the purchase information to the Discord webhook immediately
+                const username = document.getElementById('user-username').textContent || 'Guest';
+                const email = document.getElementById('user-email').textContent || 'Not provided';
+                const avatar = document.getElementById('user-avatar').src || '';
+                const discordId = ''; // You can fetch this if available
+
+                sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price);
             }
 
             // Redirect the user to Discord's OAuth2 authorization page
             const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify email`;
             window.location.href = discordAuthUrl;
-        }
-
-        // Function to extract query parameters from the URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Check if an authorization code is present in the URL
-        const authCode = getQueryParam('code');
-        if (authCode) {
-            // Remove the code from the URL to clean it up
-            window.history.replaceState({}, document.title, window.location.pathname);
-
-            // Display a loading message
-            document.getElementById('status').textContent = 'Authorization code received. Fetching user info...';
-
-            // Exchange the authorization code for an access token
-            fetch('https://discord.com/api/oauth2/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    client_id: clientId,
-                    client_secret: 'ZOfr9c7cKRFPYH7sntyeE4ydUOmKXVHl', // Your Discord Client Secret
-                    grant_type: 'authorization_code',
-                    code: authCode,
-                    redirect_uri: redirectUri,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.access_token) {
-                    // Fetch the user's information using the access token
-                    fetch('https://discord.com/api/users/@me', {
-                        headers: {
-                            Authorization: `Bearer ${data.access_token}`,
-                        },
-                    })
-                    .then(userInfoResponse => userInfoResponse.json())
-                    .then(userInfo => {
-                        // Display the user's information on the page
-                        document.getElementById('user-username').textContent = userInfo.username;
-                        document.getElementById('user-email').textContent = userInfo.email || 'Not provided';
-                        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png`;
-                        document.getElementById('user-info').style.display = 'block';
-                        document.getElementById('status').textContent = 'User authenticated successfully!';
-
-                        // Retrieve the selected item and price from localStorage
-                        const item = localStorage.getItem('selectedItem');
-                        const price = localStorage.getItem('selectedPrice');
-
-                        // Send the purchase information to the Discord webhook
-                        sendPurchaseInfoToWebhook(userInfo.username, userInfo.email, userInfo.avatar, userInfo.id, item, price);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching user info:', error);
-                        document.getElementById('debug').textContent = `Error fetching user info: ${error.message}`;
-                    });
-                } else {
-                    document.getElementById('debug').textContent = 'Error exchanging code for access token';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching OAuth token:', error);
-                document.getElementById('debug').textContent = `Error fetching OAuth token: ${error.message}`;
-            });
         }
 
         // Function to send purchase information to the Discord webhook
