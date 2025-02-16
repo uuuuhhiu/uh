@@ -414,13 +414,17 @@
                 localStorage.setItem('selectedItem', item);
                 localStorage.setItem('selectedPrice', price);
 
-                // Send the purchase information to the Discord webhook immediately
+                // Fetch user info if available
                 const username = document.getElementById('user-username').textContent || 'Guest';
                 const email = document.getElementById('user-email').textContent || 'Not provided';
                 const avatar = document.getElementById('user-avatar').src || '';
                 const discordId = ''; // You can fetch this if available
 
-                sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price);
+                // Include the promo code used in the webhook
+                const promoCodeUsed = isPromoCodeApplied ? `YES (${document.getElementById('promo-code-input').value})` : 'NO';
+
+                // Send the purchase information to the Discord webhook
+                sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price, promoCodeUsed);
             }
 
             // Redirect the user to Discord's OAuth2 authorization page
@@ -429,7 +433,7 @@
         }
 
         // Function to send purchase information to the Discord webhook
-        function sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price) {
+        function sendPurchaseInfoToWebhook(username, email, avatar, discordId, item, price, promoCodeUsed) {
             const webhookPayload = {
                 content: '',
                 embeds: [
@@ -440,7 +444,7 @@
                             { name: 'Email', value: email, inline: true },
                             { name: 'Item', value: item, inline: true },
                             { name: 'Price', value: price, inline: true },
-                            { name: 'Promo Code Used', value: isPromoCodeApplied ? 'YES' : 'NO', inline: true },
+                            { name: 'Promo Code Used', value: promoCodeUsed, inline: true },
                         ],
                         color: 15258703, // Green color for success
                         footer: {
